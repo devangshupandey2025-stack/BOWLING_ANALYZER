@@ -1,0 +1,23 @@
+{
+  "name": "bowling-action-analyzer",
+  "version": "1.0.0",
+  "description": "Web app for qualitative side-on fast bowling action feedback using Gemini.",
+  "type": "module",
+  "main": "server.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^1.29.0",
+    "compression": "^1.8.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "multer": "^2.0.2"
+  }
+}

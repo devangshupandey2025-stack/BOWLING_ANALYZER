@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: bowlsense
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromService:
+          type: web
+          name: bowlsense
+          property: port
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: RATE_LIMIT
+        value: 10
+    healthCheckPath: /api/health
+    autoDeploy: true

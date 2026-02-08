@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Upload a side-on fast bowling clip and receive qualitative, coach-style feedback powered by Gemini AI." />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>BowlSense — AI Bowling Coach</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏏</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+
+    <!-- ── Full-screen background video ────────── -->
+    <div class="bg-video-wrap">
+      <video class="bg-video" autoplay muted loop playsinline>
+        <source src="/bg-video.mp4" type="video/mp4" />
+      </video>
+      <div class="bg-overlay"></div>
+    </div>
+
+    <noscript><p style="padding:2rem;text-align:center;font-family:sans-serif;color:#fff">JavaScript is required to run BowlSense.</p></noscript>
+
+    <!-- ── Navbar ──────────────────────────────── -->
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">
+          <span class="nav-logo-mark">BS</span>
+          <span class="nav-logo-word">BowlSense</span>
+        </a>
+        <div class="nav-right">
+          <span class="nav-pill">AI-Powered</span>
+          <a href="#analyze" class="nav-cta">Get Started</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ── Hero (full viewport) ────────────────── -->
+    <header class="hero">
+      <div class="hero-content">
+        <p class="hero-tag">Cricket Fast-Bowling Intelligence</p>
+        <h1 class="hero-h1">
+          Automated coaching feedback,<br />
+          <span class="hero-highlight">from just a video.</span>
+        </h1>
+        <p class="hero-desc">
+          Upload a side-on bowling clip and receive instant, AI-generated coaching cues.
+          No sensors. No lab. Just your phone.
+        </p>
+        <a href="#analyze" class="hero-btn">
+          <span>Analyze Your Action</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span></span>
+      </div>
+    </header>
+
+    <!-- ── Trusted strip (social proof) ────────── -->
+    <section class="trust-strip">
+      <div class="trust-inner">
+        <span class="trust-label">Powered by</span>
+        <span class="trust-item">Google Gemini</span>
+        <span class="trust-dot"></span>
+        <span class="trust-item">Side-On Vision AI</span>
+        <span class="trust-dot"></span>
+        <span class="trust-item">Elite Coaching Prompts</span>
+      </div>
+    </section>
+
+    <!-- ── Analyzer section (split) ────────────── -->
+    <main id="analyze" class="analyzer">
+      <div class="analyzer-inner">
+
+        <!-- LEFT: Upload -->
+        <section class="pane pane-upload">
+          <div class="pane-head">
+            <span class="pane-badge">01</span>
+            <div>
+              <h2 class="pane-title">Upload Video</h2>
+              <p class="pane-sub">Side-on angle recommended</p>
+            </div>
+          </div>
+
+          <form id="analyzeForm" class="form" novalidate>
+            <div id="dropZone" class="dropzone">
+              <div class="dropzone-inner">
+                <svg class="dropzone-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <p class="dropzone-label">Drag & drop your clip</p>
+                <p class="dropzone-hint">or click to browse &middot; MP4, MOV, WebM &middot; Max 250 MB</p>
+              </div>
+              <input id="video" name="video" type="file" accept="video/*" required class="dropzone-input" />
+            </div>
+
+            <div id="fileInfo" class="file-tag" hidden>
+              <span class="file-tag-icon">🎬</span>
+              <span id="fileName" class="file-tag-name"></span>
+              <span id="fileSize" class="file-tag-size"></span>
+              <button type="button" id="fileClear" class="file-tag-x" aria-label="Remove">&times;</button>
+            </div>
+
+            <div id="videoPreview" class="preview" hidden>
+              <video id="previewPlayer" muted playsinline></video>
+            </div>
+
+            <label class="confirm-row" for="sideOnConfirmed">
+              <input id="sideOnConfirmed" name="sideOnConfirmed" type="checkbox" />
+              <span>I confirm this is a <strong>side-on</strong> bowling clip</span>
+            </label>
+
+            <div class="actions">
+              <button id="analyzeBtn" type="submit" class="btn-analyze">Analyze Action
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+              <button id="cancelBtn" type="button" class="btn-cancel" hidden>Cancel</button>
+            </div>
+
+            <p id="status" class="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <!-- RIGHT: Feedback -->
+        <section class="pane pane-feedback">
+          <div class="pane-head">
+            <span class="pane-badge">02</span>
+            <div>
+              <h2 class="pane-title">Coaching Feedback</h2>
+              <p class="pane-sub">AI-generated analysis</p>
+            </div>
+          </div>
+
+          <!-- Loading -->
+          <div id="loadingState" class="ld" hidden>
+            <div class="ld-ball"><div class="ld-seam"></div></div>
+            <p id="loadingMsg" class="ld-msg">Preparing analysis&hellip;</p>
+            <div class="ld-steps">
+              <div class="step" data-step="upload"><span class="step-pip"></span>Uploading video</div>
+              <div class="step" data-step="process"><span class="step-pip"></span>Processing frames</div>
+              <div class="step" data-step="analyze"><span class="step-pip"></span>Analyzing action</div>
+              <div class="step" data-step="report"><span class="step-pip"></span>Generating report</div>
+            </div>
+          </div>
+
+          <!-- Empty -->
+          <div id="emptyState" class="empty">
+            <div class="empty-graphic">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.25"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+            </div>
+            <p class="empty-h">No analysis yet</p>
+            <p class="empty-p">Upload a side-on bowling clip to<br/>receive personalized coaching feedback.</p>
+          </div>
+
+          <!-- Result -->
+          <div id="resultState" class="result" hidden>
+            <pre id="output" tabindex="0"></pre>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ── Footer ──────────────────────────────── -->
+    <footer class="ft">
+      <div class="ft-inner">
+        <span class="ft-brand">BowlSense</span>
+        <small class="ft-copy">Informational feedback only — does not replace professional coaching.</small>
+      </div>
+    </footer>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
