@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Side-On Bowling Action Analyzer
 
 Local web app that uses Gemini to generate qualitative, coach-style feedback from a side-on fast bowling video.
@@ -39,3 +40,6 @@ Open `http://localhost:3000`.
 - You can enter a Gemini API key in the UI instead of `.env` for one-off use.
 - Keep clips reasonably short for faster upload and processing.
 - This app provides informational coaching feedback, not medical advice.
+=======
+# BOWLING_ANALYZER
+>>>>>>> b7fb55e0d2c4244b12f158a97d05a2885e14e0bb
